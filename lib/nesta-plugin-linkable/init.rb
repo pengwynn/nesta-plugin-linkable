@@ -2,15 +2,17 @@ module Nesta
   module Plugin
     module Linkable
       module Helpers
-        def url_for(page)
-          page.is_linked? ? page.metadata('url') : super
-        end
       end
     end
   end
 
   class App
     helpers Nesta::Plugin::Linkable::Helpers
+
+    def url_for(page)
+      page.is_linked? ? page.metadata('url') : File.join(base_url, page.path)
+    end
+
   end
 
   class Page
