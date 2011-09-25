@@ -1,0 +1,49 @@
+# Linkable posts for Nesta CMS
+
+This plugin makes it simple to do [Daring Fireball](http://daringfireball.net) style posts for remote links in [Nesta](http://nestacms.com). Simply add the `url` to your article [metadata](http://nestacms.com/docs/creating-content/metadata-reference):
+
+    date: 2011-09-22 11:34:07 -0500
+    categories: linked
+    url: http://nestacms.com/docs/design/making-an-art-directed-blogazine
+    slug: making-blogazine-with-nesta
+
+    # Making a blogazine with NestaCMS
+
+    ...
+
+### Installation
+
+To install add the plugin to your Nesta Gemfile
+
+In your views, be sure to use the `url_for` helper to link to the remote URL as needed in pages:
+
+    - if @page.is_linked?
+      %a.permalink{:href => url_for(@page)}
+        &rarr;
+
+... or by default in your atom feed:
+
+    ...
+    - @articles.each do |article|
+      %entry
+        %title= article.heading
+        %link{ :href => url_for(article), :type => 'text/html', :rel => 'alternate' }
+        %id= atom_id(article)
+    ...
+
+The plugin works nicely with the [Sluggable](https://github.com/pengwynn/nesta-plugin-sluggable) which allows you to add descriptive slugs to your link post URLs.
+
+## Note on Patches/Pull Requests
+
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but
+   bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+## Copyright
+
+Copyright (c) 2011 Wynn Netherland. See LICENSE for details.
